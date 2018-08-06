@@ -10,15 +10,17 @@ class Map extends Component {
 		        location:{
 		        lat: 49.149017, 
 		        lng: 17.570997},
-		        visible: true
+		        visible: true,
+                term: "Our_Lady_of_Lourdes"
 		    
 		      },
 		    
-		    {title: "Our Lady of Seventh pains",
+		    {title: "Our Lady of Sorrows",
 		        location:{
 		        lat: 49.149532,
 		        lng: 17.570430},
-		        visible: true
+		        visible: true,
+                term: "Our_Lady_of_Sorrows"
 		    
 		      },
 		    
@@ -26,7 +28,8 @@ class Map extends Component {
 		        location:{
 		        lat: 49.150146,
 		        lng: 17.569632},
-		        visible: true
+		        visible: true,
+                term: "Cholera"
 		    
 		      },
 		    
@@ -34,7 +37,8 @@ class Map extends Component {
 		        location:{
 		        lat: 49.150907,
 		        lng: 17.568888},
-		        visible: true
+		        visible: true,
+                term: " "
 
 		  },
 
@@ -42,7 +46,8 @@ class Map extends Component {
 		    	location:{
 		    	lat: 49.152767,
 		    	lng: 17.569109},
-		    	visible: true
+		    	visible: true,
+                term: "Anthony_of_Padua"
 
 		  }
 		],
@@ -50,6 +55,7 @@ class Map extends Component {
 		infoWindow: {},
         markers: [],
         query: '',
+        result: ""
 
 	}
 
@@ -82,20 +88,30 @@ class Map extends Component {
        
     }
 
+    wikipedia(term) {
+    fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=extracts&titles=${term}&exintro=1`)
+      .then((resp)=>resp.json()).then((resp)=> {let data= resp.query.pages[Object.keys(resp.query.pages)[0]].extract; console.log(data)})
+    
+    }
+
     setMarkers(map) {
 
         let markers = this.state.places.filter(place => place.visible).map(place => {
             const marker = new window.google.maps.Marker({
                 position: {lat: place.location.lat, lng: place.location.lng},
                 map,
-                title: place.title
-            });
+                title: place.title,
+                info: this.wikipedia(place.term)
+                
+            })
 
             marker.addListener('click', () => {
-                this.state.map.panTo(marker.getPosition());
+
+                                this.state.map.panTo(marker.getPosition());
                 this.state.infoWindow.setContent(`
                     <div tabIndex="1" name=${marker.title}>
-                        <p>${marker.title}</p>
+                        <h3>${marker.title}</h3>
+                        <p> ${marker.info} </p>
                     </div>`);
                 this.state.infoWindow.open(map, marker)
             });
