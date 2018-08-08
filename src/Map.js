@@ -98,7 +98,8 @@ class Map extends Component {
     info = fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=extracts&titles=${term}&exintro=1`)
        .then((resp) => resp.json())
        .then((resp) => { 
-      info = resp.query.pages[Object.keys(resp.query.pages)[0]].extract
+       resp.query.pages[Object.keys(resp.query.pages)[0]].extract;
+       console.log(info)
        }); 
        return info}
   }
