@@ -11,7 +11,8 @@ class Map extends Component {
 		        lat: 49.149017, 
 		        lng: 17.570997},
 		        visible: true,
-                term: "Our_Lady_of_Lourdes"
+                term: "Our_Lady_of_Lourdes",
+                info: ""
 		    
 		      },
 		    
@@ -20,7 +21,8 @@ class Map extends Component {
 		        lat: 49.149532,
 		        lng: 17.570430},
 		        visible: true,
-                term: "Our_Lady_of_Sorrows"
+                term: "Our_Lady_of_Sorrows",
+                info: ""
 		    
 		      },
 		    
@@ -29,7 +31,8 @@ class Map extends Component {
 		        lat: 49.150146,
 		        lng: 17.569632},
 		        visible: true,
-                term: "Cholera"
+                term: "Cholera",
+                info: ""
 		    
 		      },
 		    
@@ -38,7 +41,9 @@ class Map extends Component {
 		        lat: 49.150907,
 		        lng: 17.568888},
 		        visible: true,
-                term: " "
+                term: " ",
+                info: ""
+                
 
 		  },
 
@@ -47,7 +52,8 @@ class Map extends Component {
 		    	lat: 49.152767,
 		    	lng: 17.569109},
 		    	visible: true,
-                term: "Anthony_of_Padua"
+                term: "Anthony_of_Padua",
+                info: ""
 
 		  }
 		],
@@ -56,9 +62,7 @@ class Map extends Component {
         markers: [],
         query: '',
         result: ""
-
 	}
-
 
 	 //function to filter places based on their names
     filter = (query) => {
@@ -68,7 +72,7 @@ class Map extends Component {
         markers.forEach(marker => marker.setMap(null))
 
         const selectLocations = this.state.places.map((place) => {
-            if ((place.title.toLowerCase().search(query.toLowerCase())!=-1) || (query === '')) {
+            if ((place.title.toLowerCase().search(query.toLowerCase())!==-1) || (query === '')) {
                 place.visible = true
             } else {
                 place.visible = false
@@ -83,35 +87,47 @@ class Map extends Component {
 
 
     componentDidMount() {
-        this.loadMap(); // call loadMap function to load the google map
-        console.log(this.loadMap);
+        this.loadMap()
        
     }
 
     wikipedia(term) {
-    fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=extracts&titles=${term}&exintro=1`)
-      .then((resp)=>resp.json()).then((resp)=> {let data= resp.query.pages[Object.keys(resp.query.pages)[0]].extract; console.log(data)})
-    
-    }
+    let info="moje";
+      if (term== " ") {return('Sorry, there are no facts for this place')}
+    else {
+    info = fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=extracts&titles=${term}&exintro=1`)
+       .then((resp) => resp.json())
+       .then((resp) => { 
+      info = resp.query.pages[Object.keys(resp.query.pages)[0]].extract
+       }); 
+       return info}
+  }
 
-    setMarkers(map) {
+    createMarkers(map) {
+
 
         let markers = this.state.places.filter(place => place.visible).map(place => {
+            
             const marker = new window.google.maps.Marker({
                 position: {lat: place.location.lat, lng: place.location.lng},
                 map,
                 title: place.title,
-                info: this.wikipedia(place.term)
+                search: place.term
+                
                 
             })
 
             marker.addListener('click', () => {
-
-                                this.state.map.panTo(marker.getPosition());
+          
+        let newInfo;
+        newInfo =this.wikipedia(marker.search);
+           
+         
+                this.state.map.panTo(marker.getPosition());
                 this.state.infoWindow.setContent(`
                     <div tabIndex="1" name=${marker.title}>
                         <h3>${marker.title}</h3>
-                        <p> ${marker.info} </p>
+                        <p> ${newInfo} </p>
                     </div>`);
                 this.state.infoWindow.open(map, marker)
             });
@@ -141,7 +157,7 @@ class Map extends Component {
                 content: 'content'
             });
             this.setState({map, infoWindow});
-            this.setMarkers(map);
+            this.createMarkers(map);
         
     }
 

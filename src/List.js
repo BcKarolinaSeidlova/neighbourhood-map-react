@@ -3,7 +3,7 @@ import Marker from './Marker';
 import './index.css'
 class List extends Component {
 
-    updateQuery = (event) =>{
+    search = (event) =>{
         let query = event.target.value;
         this.props.filter(query);
         let places = this.props.places
@@ -14,13 +14,13 @@ class List extends Component {
 
 
     render() {
-        const {map,infoWindow,markers,query} = this.props;
+        const {map,infoWindow,markers} = this.props;
         return (
             <div className='side-nav-container'>
                 <div className="side-nav">
                    <input type="text"
                          placeholder="Search by place name"
-                         onChange={this.updateQuery}
+                         onChange={this.search}
                   />
 
                     <ul className="location-list">
