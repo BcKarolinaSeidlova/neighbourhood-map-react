@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Marker from './Marker';
+import ListItem from './ListItem';
 import './index.css'
-class List extends Component {
+class Search extends Component {
 
     search = (event) =>{
         let query = event.target.value;
@@ -25,7 +25,8 @@ class List extends Component {
 
                     <ul className="location-list">
                         {      markers.map(marker => (
-                                <Marker  map={map} marker={marker} key={marker.title} infoWindow={infoWindow} />
+                                <ListItem  map={map} marker={marker} key={marker.title} infoWindow={infoWindow} 
+                                search={marker.search}/>
                             ))
                         }
                     </ul>
@@ -36,4 +37,4 @@ class List extends Component {
 }
 
 
-export default List;
+export default Search;
