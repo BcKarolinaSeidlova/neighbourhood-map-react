@@ -6,56 +6,54 @@ class Map extends Component {
 	state ={
         places: [
             {title: "Our Lady of Lourdes",
-                location:{
+             detail: "This small statue was built as a vote thanks to God. In 1890, a startled horse fell into a water well. Fortunately, the horse was saved and nobody was hurt.",
+             location:{
                 lat: 49.149017, 
                 lng: 17.570997},
-                visible: true,
-                term: "Our_Lady_of_Lourdes",
-                info: ""
-            
-              },
+             visible: true,
+             term: "Our_Lady_of_Lourdes"
+        
+            },
             
             {title: "Our Lady of Sorrows",
-                location:{
+             detail: "The statue was built in 1917. It was funded by very religious married couple that was childless.",
+             location:{
                 lat: 49.149532,
                 lng: 17.570430},
-                visible: true,
-                term: "Our_Lady_of_Sorrows",
-                info: ""
-            
-              },
+             visible: true,
+             term: "Our_Lady_of_Sorrows"
+        
+            },
             
             {title: "Cholera cross",
-                location:{
+             detail: "Cross reminding victims of Cholera epidemies, that appeared in 1836 and 1866.",
+             location:{
                 lat: 49.150146,
                 lng: 17.569632},
-                visible: true,
-                term: "Cholera",
-                info: ""
-            
-              },
+             visible: true,
+             term: "Cholera"
+        
+            },
             
             {title: "Isidor Mlynek's cross",
-                location:{
+             detail: "This cross from 1886 reminds young man, Isidor Mlynek, who tragically died in 1885 aged 18 years.",
+             location:{
                 lat: 49.150907,
                 lng: 17.568888},
-                visible: true,
-                term: "Isidore_the_Laborer",
-                info: ""
-                
-
-          },
+             visible: true,
+             term: " "
+            },
 
             {title: "Church of St. Anthony of Padua",
-                location:{
+             detail: "Church was built and consecrated in 1940.",
+             location:{
                 lat: 49.152767,
                 lng: 17.569109},
-                visible: true,
-                term: "Anthony_of_Padua",
-                info: ""
-
-          }
+             visible: true,
+             term: "Anthony_of_Padua"
+            }
         ],
+
 		map: {},
 		infoWindow: {},
         markers: [],
@@ -86,48 +84,23 @@ class Map extends Component {
 
 
     componentDidMount() {
-        this.loadMap();}
-
-getWiki(term) {
-    let results=[1];
-    fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=extracts&titles=${term}&exintro=1`)
-          .then((resp) => resp.json())
-          .then((resp) => 
-           resp.query.pages[Object.keys(resp.query.pages)[0]].extract
-                           ).then((resp)=>{results.push(resp);
-                            results.push(resp);
-                        results.push(resp);
-                        console.log(typeof resp)})
-   
-    console.log(results[0]);
-                    
-}
+        this.loadMap()
+    }
  
 
     createMarkers(map) {
-
-
         let markers = this.state.places.filter(place => place.visible).map(place => {
             const marker = new window.google.maps.Marker({
                 position: {lat: place.location.lat, lng: place.location.lng},
                 map,
                 title: place.title,
                 search: place.term,
-                info: place.info
-                
-                
+                detail: place.detail  
             });
 
             marker.addListener('click', () => {
-                ;
-                
-                this.state.map.panTo(marker.getPosition());
-                this.state.infoWindow.setContent(`
-                    <div tabIndex="1" name=${marker.title}>
-                        <h3>${marker.title}</h3>
-                        <p> ${this.getWiki(marker.search)} </p>
-                    </div>`);
-                this.state.infoWindow.open(map, marker)
+                let listItem = document.getElementById(marker.title);
+                listItem.click();   
             });
 
             marker.addListener('mouseover', function() {
@@ -147,8 +120,8 @@ getWiki(term) {
     loadMap() { 
      
             const map = new window.google.maps.Map(document.getElementById('map'), {
-                center: {lat: 49.150146, lng: 17.569632},
-                zoom: 15,
+                center: {lat: 49.150907, lng: 17.568888},
+                zoom: 16,
             });
 
             const infoWindow = new window.google.maps.InfoWindow({
@@ -156,18 +129,15 @@ getWiki(term) {
             });
 
             this.setState({map, infoWindow});
-            this.createMarkers(map);
-       
-                
-            }
+            this.createMarkers(map);  
+    }
         
 
 render () {
     const {query, map, infoWindow, markers} = this.state;
      const style = window.innerWidth >= 900 ? 
-     {      width: '80vw',
-            height: '90vh'} : {width: '100vw', height: '75vh'}
-console.log(style)
+     { width: '80vw', height: '86vh'} : {width: '100vw', height: '90vh'}
+        console.log(style)
 	return (
 		<div className="container" role="main">
                  <Search query={query} 

@@ -11,14 +11,12 @@ class Search extends Component {
       
     };
 
-
-
     render() {
         const {map,infoWindow,markers} = this.props;
         return (
             <div className='side-nav-container'>
                 <div className="side-nav">
-                   <input type="text"
+                   <input className="search" type="text"
                          placeholder="Search by place name"
                          onChange={this.search}
                   />

@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <div> <h1> Neighbourhood map</h1> </div>
+      <div className="header"> <h1> Neighbourhood map</h1> </div>
       
       <Map google={this.props.google}/>
         

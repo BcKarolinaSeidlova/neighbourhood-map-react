@@ -1,6 +1,9 @@
 * {
     box-sizing: border-box;
 }
+html {
+      background: #c2db42;
+}
 
 body {
   margin: 0;
@@ -12,13 +15,16 @@ body {
     display:flex;
 }
 
-
+.header {
+    text-align: center;
+}
 /* Side Nav */
 
 .side-nav-container {
     display:flex;
     justify-content: center;
     width: 30%;
+    background: #c2db42;
 }
 
 .location-list {
@@ -28,6 +34,30 @@ body {
     list-style: none;
     width:100%;
     padding: 0;
+}
+
+.nav-item {
+
+}
+
+.infoWindow {
+  max-width: 400px;
+}
+
+.wikipedia {
+  text-align: left;
+}
+
+.search {
+  width: 25vw;
+  padding: 20px 20px 20px 60px;
+  background-image: url('./icons/search.svg');
+  background-repeat: no-repeat;
+  background-position: 20px center;
+  background-size: 1.2em;
+  font-size: 1.2em;
+  border: 0;
+  outline: none;
 }
 
 
@@ -40,4 +70,8 @@ body {
 		width: 100vw;
 		height: auto;
 	}
+
+    .search {
+  width: 90vw;
+}
 }
