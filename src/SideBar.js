@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ListItem from './ListItem';
 import './index.css'
-class Search extends Component {
+class SideBar extends Component {
 
     search = (event) =>{
         let query = event.target.value;
@@ -46,4 +46,4 @@ class Search extends Component {
 }
 
 
-export default Search;
+export default SideBar;

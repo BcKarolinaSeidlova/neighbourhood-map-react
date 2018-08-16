@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Search from './Search.js'
+import SideBar from './SideBar.js'
 import './index.css';
 
 class Map extends Component {
@@ -159,7 +159,7 @@ render () {
 
 	return (
 		<div className='container' role='main'>
-                 <Search query={query} 
+                 <SideBar query={query} 
                         places={places} 
                         markers={markers} 
                         map={map}
