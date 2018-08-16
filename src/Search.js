@@ -16,15 +16,23 @@ class Search extends Component {
         return (
             <div className='side-nav-container'>
                 <div className="side-nav">
-                   <input className="search" type="text"
-                         placeholder="Search by place name"
-                         onChange={this.search}
+                   <input className="search" 
+                            type="text"
+                            role="search"
+                            label="Search by place name"
+                            aria-label="Search form"
+                            placeholder="Search by place name"
+                            onChange={this.search}
+
                   />
 
-                    <ul className="location-list">
+                    <ul className="location-list" role="list" aria-label="List of places"> 
                         {      markers.map(marker => (
-                                <ListItem  map={map} marker={marker} key={marker.title} infoWindow={infoWindow} 
-                                search={marker.search}/>
+                                <ListItem  map={map} 
+                                marker={marker} 
+                                key={marker.title} 
+                                infoWindow={infoWindow} 
+                                />
                             ))
                         }
                     </ul>

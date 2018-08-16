@@ -15,15 +15,18 @@ body {
     display:flex;
 }
 
-.header {
+h1 {
+    width: 100%;
     text-align: center;
+    padding: 0.5em 0 0.5em;
+    margin: 0;
+    background: #aabd46;
 }
 /* Side Nav */
 
 .side-nav-container {
     display:flex;
     justify-content: center;
-    width: 30%;
     background: #c2db42;
 }
 
@@ -37,11 +40,17 @@ body {
 }
 
 .nav-item {
+    padding-left: 0.5em;
+}
+.nav-item:hover, .nav-item:focus, .search:focus, .hover-focus {
+    cursor: pointer;
+    background: #000;
+    color: #c2db42;
 
 }
 
 .infoWindow {
-  max-width: 400px;
+  width: 400px;
 }
 
 .wikipedia {
@@ -50,12 +59,12 @@ body {
 
 .search {
   width: 25vw;
-  padding: 20px 20px 20px 60px;
+  padding: 20px 20px 20px 45px;
   background-image: url('./icons/search.svg');
   background-repeat: no-repeat;
   background-position: 20px center;
   background-size: 1.2em;
-  font-size: 1.2em;
+  font-size: 1em;
   border: 0;
   outline: none;
 }
@@ -72,6 +81,17 @@ body {
 	}
 
     .search {
-  width: 90vw;
+  width: 100vw;
+  font-size: 1.2em;
+}
+
+.nav-item {
+   text-align: center;
+}
+}
+
+@media screen and (max-width: 399px) {
+    .infoWindow {
+  width: 95vw;
 }
 }

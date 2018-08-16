@@ -58,7 +58,7 @@ class Map extends Component {
 		infoWindow: {},
         markers: [],
         query: '',
-        selectLocations: ""
+        //selectLocations: ""
 	}
 
 	 //function to filter places based on their names
@@ -100,18 +100,35 @@ class Map extends Component {
 
             marker.addListener('click', () => {
                 let listItem = document.getElementById(marker.title);
-                listItem.click();   
+                listItem.click();
+                 listItem.classList.add('hover-focus');
+            });
+
+            marker.addListener('focus', ()=> {
+                let listItem = document.getElementById(marker.title);
+                listItem.classList.add('hover-focus');
             });
 
             marker.addListener('mouseover', function() {
+                let listItem = document.getElementById(marker.title);
+                 listItem.classList.add('hover-focus');
                 this.setAnimation(window.google.maps.Animation.BOUNCE);
                 setTimeout(() => this.setAnimation(null), 400)
             });
 
             marker.addListener('mouseout', function() {
+               let listItem = document.getElementById(marker.title);
+                 listItem.classList.remove('hover-focus');
                 this.setAnimation(null)
             });
 
+             marker.addListener('blur', function() {
+               let listItem = document.getElementById(marker.title);
+                 listItem.classList.remove('hover-focus');
+                this.setAnimation(null)
+            });
+             marker.tabIndex=0;
+             console.log("tabindex:"+marker.tabIndex);
             return marker;
         });
         this.setState({markers})
@@ -136,8 +153,8 @@ class Map extends Component {
 render () {
     const {query, map, infoWindow, markers} = this.state;
      const style = window.innerWidth >= 900 ? 
-     { width: '80vw', height: '86vh'} : {width: '100vw', height: '90vh'}
-        console.log(style)
+     { width: '74vw', height: '90vh'} : {width: '100vw', height: '90vh'}
+        console.log(this.state.infoWindow)
 	return (
 		<div className="container" role="main">
                  <Search query={query} 
@@ -149,8 +166,8 @@ render () {
                          />
 
                 <div className="map-container">
-                    <div id="map" 
-                        aria-hidden="true" 
+                    <div id="map"
+                        aria-hidden="true"
                         style={style} 
                         role="application"/>
                 </div>
