@@ -48,7 +48,7 @@ class ListItem extends Component {
         
 
         let listItems = document.getElementsByClassName('list-item');
-        for (let item of listItems) {if (item.id!=marker.title) {item.classList.remove('focus')}}
+        for (let item of listItems) {if (item.id!==marker.title) {item.classList.remove('focus')}}
 
         let listItem = document.getElementById(marker.title);
         listItem.classList.add('focus');
@@ -69,11 +69,13 @@ class ListItem extends Component {
         const {infoWindow} = this.props;
         
         let listItems = document.getElementsByClassName('list-item');
-        for (let item of listItems) {if (infoWindow.anchor.visible==false) {item.classList.remove('focus')}}
+        for (let item of listItems) {if (infoWindow.anchor.visible===false) {item.classList.remove('focus')}}
     }
 
 
-    render() {this.default;
+    render() {
+
+        this.default; //when rendering reset classes of list items
         const {marker} = this.props;
 
         return (

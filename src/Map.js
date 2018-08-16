@@ -137,7 +137,7 @@ class Map extends Component {
         //clear map
         markers.forEach(marker => marker.setMap(null))
 
-        const selectLocations = this.state.places.map((place) => {
+        this.state.places.map((place) => {
             if ((place.title.toLowerCase().search(query.toLowerCase())!==-1) || (query === '')) {
                 place.visible = true
             } else {
