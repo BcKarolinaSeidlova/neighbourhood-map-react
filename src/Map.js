@@ -57,34 +57,29 @@ class Map extends Component {
 		map: {},
 		infoWindow: {},
         markers: [],
-        query: '',
-        //selectLocations: ""
+        query: ''
 	}
-
-	 //function to filter places based on their names
-    filter = (query) => {
-        const map = this.state.map;
-        const markers = this.state.markers;
-        //clear map
-        markers.forEach(marker => marker.setMap(null))
-
-        const selectLocations = this.state.places.map((place) => {
-            if ((place.title.toLowerCase().search(query.toLowerCase())!==-1) || (query === '')) {
-                place.visible = true
-            } else {
-                place.visible = false
-            }
-            return place
-        });
-
-        this.setState({selectLocations, query});
-        this.createMarkers(map)
-
-    };
 
 
     componentDidMount() {
-        this.loadMap()
+        this.loadMap();
+    }
+
+
+    loadMap() { 
+     
+            const map = new window.google.maps.Map(document.getElementById('map'), {
+                center: {lat: 49.150907, lng: 17.568888},
+                zoom: 16,
+            });
+
+
+            const infoWindow = new window.google.maps.InfoWindow({
+                content: 'content'
+            });
+
+            this.setState({map, infoWindow});
+            this.createMarkers(map);  
     }
  
 
@@ -101,7 +96,8 @@ class Map extends Component {
             marker.addListener('click', () => {
                 let listItem = document.getElementById(marker.title);
                 listItem.click();
-                 listItem.classList.add('hover-focus');
+                listItem.classList.add('focus');
+                 
             });
 
             marker.addListener('focus', ()=> {
@@ -122,54 +118,59 @@ class Map extends Component {
                 this.setAnimation(null)
             });
 
-             marker.addListener('blur', function() {
+            marker.addListener('blur', function() {
                let listItem = document.getElementById(marker.title);
                  listItem.classList.remove('hover-focus');
                 this.setAnimation(null)
             });
-             marker.tabIndex=0;
-             console.log("tabindex:"+marker.tabIndex);
+            
             return marker;
         });
         this.setState({markers})
     }
 
-    loadMap() { 
-     
-            const map = new window.google.maps.Map(document.getElementById('map'), {
-                center: {lat: 49.150907, lng: 17.568888},
-                zoom: 16,
-            });
 
-            const infoWindow = new window.google.maps.InfoWindow({
-                content: 'content'
-            });
+     //function to filter places based on their names
+    filter = (query) => {
+        const map = this.state.map;
+        const markers = this.state.markers;
+        //clear map
+        markers.forEach(marker => marker.setMap(null))
 
-            this.setState({map, infoWindow});
-            this.createMarkers(map);  
-    }
+        const selectLocations = this.state.places.map((place) => {
+            if ((place.title.toLowerCase().search(query.toLowerCase())!==-1) || (query === '')) {
+                place.visible = true
+            } else {
+                place.visible = false
+            }
+            return place
+        });
+
+        this.setState({query});
+        this.createMarkers(map)
+
+    };
+
         
 
 render () {
     const {query, map, infoWindow, markers} = this.state;
-     const style = window.innerWidth >= 900 ? 
-     { width: '74vw', height: '90vh'} : {width: '100vw', height: '90vh'}
-        console.log(this.state.infoWindow)
+    const {places} = this.props;
+
 	return (
-		<div className="container" role="main">
+		<div className='container' role='main'>
                  <Search query={query} 
-                        places={this.props.places} 
+                        places={places} 
                         markers={markers} 
                         map={map}
                         infoWindow={infoWindow} 
                         filter={this.filter}
                          />
 
-                <div className="map-container">
-                    <div id="map"
-                        aria-hidden="true"
-                        style={style} 
-                        role="application"/>
+                <div className='map-container'>
+                    <div id='map'
+                        aria-hidden='true'
+                        role='application'/>
                 </div>
             </div>
 		)

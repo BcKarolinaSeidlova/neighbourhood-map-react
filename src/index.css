@@ -11,16 +11,37 @@ body {
   font-family: sans-serif;
 }
 
+h1, h2 {margin: 0;
+    font-family: 'Amatic SC', cursive;
+}
+
 .container {
     display:flex;
 }
 
 h1 {
+    font-size: 2.5em;
     width: 100%;
     text-align: center;
     padding: 0.5em 0 0.5em;
     margin: 0;
     background: #aabd46;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h4 {
+    font-size: 1.2em;
+    margin-bottom: 0;
+}
+
+
+
+#map {
+    width: 74vw;
+    height: 90vh;
 }
 /* Side Nav */
 
@@ -39,10 +60,10 @@ h1 {
     padding: 0;
 }
 
-.nav-item {
+.list-item {
     padding-left: 0.5em;
 }
-.nav-item:hover, .nav-item:focus, .search:focus, .hover-focus {
+.list-item:hover, .list-item:focus, .search:focus, .hover-focus, .focus {
     cursor: pointer;
     background: #000;
     color: #c2db42;
@@ -60,13 +81,20 @@ h1 {
 .search {
   width: 25vw;
   padding: 20px 20px 20px 45px;
-  background-image: url('./icons/search.svg');
+  background-image: url('./icons/search-black.svg');
   background-repeat: no-repeat;
   background-position: 20px center;
   background-size: 1.2em;
   font-size: 1em;
   border: 0;
   outline: none;
+}
+
+.search:focus {
+    background-image: url('./icons/search-white.svg');
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    background-size: 1.2em;
 }
 
 
@@ -85,13 +113,18 @@ h1 {
   font-size: 1.2em;
 }
 
-.nav-item {
+.list-item {
    text-align: center;
+}
+
+#map {
+    width: 100vw;
+    height: 90vh;
 }
 }
 
 @media screen and (max-width: 399px) {
     .infoWindow {
-  width: 95vw;
+  width: 70vw;
 }
 }

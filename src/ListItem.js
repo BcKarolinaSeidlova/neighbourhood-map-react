@@ -4,14 +4,14 @@ import './index.css';
 
 class ListItem extends Component {
     state = {
-        result: "",
-        link: ""
+        result: '',
+        link: ''
     }
 
     componentDidMount() {
      const {marker} = this.props;
-     if (marker.search === " ") {
-              this.setState({result: 'Sorry, there are no facts for this place in Wikipedia'})
+     if (marker.search === ' ') {
+            this.setState({result: 'Sorry, there are no facts for this place in Wikipedia'})
      }
       else {
           fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=extracts&titles=${marker.search}&exintro=1`)
@@ -32,8 +32,8 @@ class ListItem extends Component {
 
     openMarker = () => {     
     const {map, infoWindow, marker} = this.props;
-     console.log(infoWindow)
-      map.panTo(marker.getPosition());
+     
+    map.panTo(marker.getPosition());
      infoWindow.setContent(
                 `<div class="infoWindow" tabIndex="0" name=${ marker.title }>
                      <h2>${marker.title}</h2>
@@ -45,12 +45,19 @@ class ListItem extends Component {
 
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
         infoWindow.open(map, marker)
+        
+
+        let listItems = document.getElementsByClassName('list-item');
+        for (let item of listItems) {if (item.id!=marker.title) {item.classList.remove('focus')}}
+
+        let listItem = document.getElementById(marker.title);
+        listItem.classList.add('focus');
     }
 
     mouseOver = () => {
         const {marker}= this.props;
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
-    }
+}
 
 
     mouseOut = () => {
@@ -58,23 +65,28 @@ class ListItem extends Component {
         marker.setAnimation(null);
     }
 
+    default = () => {
+        const {infoWindow} = this.props;
+        
+        let listItems = document.getElementsByClassName('list-item');
+        for (let item of listItems) {if (infoWindow.anchor.visible==false) {item.classList.remove('focus')}}
+    }
 
 
-
-    render() {
+    render() {this.default;
         const {marker} = this.props;
 
         return (
             <li id={marker.title} 
-                className="nav-item"
-                role='List item' 
-                tabIndex="0" 
+                className='list-item'
+                tabIndex='0' 
                 onClick={this.openMarker} 
                 onMouseOver={this.mouseOver} 
                 onMouseOut={this.mouseOut} 
                 onFocus={this.mouseOver} 
                 onBlur={this.mouseOut}
-                onKeyPress={this.openMarker}>
+                onKeyPress={this.openMarker}
+               >
                 <p>{marker.title}</p>
             </li>
 

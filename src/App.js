@@ -5,10 +5,12 @@ import './App.css';
 
 class App extends Component {
 
+
   render() {
+  	
     return (
-      <div className="App">
-      <div className="header"> <h1> Neighbourhood map</h1> </div>
+      <div className='App'>
+      <div className='header'> <h1> My Neighbourhood Map App</h1> </div>
       
       <Map google={this.props.google}/>
         
