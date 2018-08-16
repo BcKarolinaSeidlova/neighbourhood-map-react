@@ -169,7 +169,6 @@ render () {
 
                 <div className='map-container'>
                     <div id='map'
-                        aria-hidden='true'
                         role='application'/>
                 </div>
             </div>
