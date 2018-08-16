@@ -4,7 +4,7 @@ _This project was bootstrapped with [Create React App](https://github.com/facebo
 This is the final project of Front-end web developer course by [Udacity](www.udacity.com). It is the React App using the Google Maps API and MediaWiki API.
 This App was created by Karolina Seidlova (_me_).
 
-##Installation
+## Installation
 1. cloning from repository
 ```
 git clone https://github.com/BcKarolinaSeidlova/neighbourhood-map-react.git
@@ -14,17 +14,22 @@ or download ZIP file (https://github.com/BcKarolinaSeidlova/neighbourhood-map-re
 
 2. Run these commands in your gitbash/
 
-```npm install```
-``` npm start```
+```
+npm install
+```
+
+```
+npm start
+```
 
 3. Unless your browser opens automatically
 open ```http://localhost:3000/``` in your browser
 
-4. Enjoy the map!
+4. Enjoy the App!
 
 
 
-##Dependencies
+## Dependencies
 The following dependencies have been used to build this project. Make sure to run npm install before launching the development build.
 
 - [React](https://github.com/facebook/React)
