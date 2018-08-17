@@ -25,7 +25,7 @@ class ListItem extends Component {
                  this.setState({
                  link: `<a href='https://en.wikipedia.org/wiki/${marker.search}' target="_blank"> More info </a>`
              });
-            })
+            }).catch(e=>{console.log("Error: "+e); this.setState({result: 'Sorry, wikipedia content cannot be loaded'})})
      }
     }
 
@@ -81,7 +81,8 @@ class ListItem extends Component {
         return (
             <li id={marker.title} 
                 className='list-item'
-                tabIndex='0' 
+                tabIndex='0'
+                role='button' 
                 onClick={this.openMarker} 
                 onMouseOver={this.mouseOver} 
                 onMouseOut={this.mouseOut} 

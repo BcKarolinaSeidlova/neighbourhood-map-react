@@ -5,27 +5,36 @@ This is the final project of Front-end web developer course by [Udacity](www.uda
 This App was created by Karolina Seidlova (_me_).
 
 ## Installation
+### Development mode
 1. cloning from repository
-```
-git clone https://github.com/BcKarolinaSeidlova/neighbourhood-map-react.git
-```
+```git clone https://github.com/BcKarolinaSeidlova/neighbourhood-map-react.git```
 
 or download ZIP file (https://github.com/BcKarolinaSeidlova/neighbourhood-map-react/archive/master.zip)
 
 2. Run these commands in your gitbash/
 
-```
-npm install
-```
+```npm install```
 
-```
-npm start
-```
+``` npm start```
 
 3. Unless your browser opens automatically
 open ```http://localhost:3000/``` in your browser
 
 4. Enjoy the App!
+
+### Production mode
+
+_**ServiceWorker is active only in production build**_, use following commands:
+
+1. ```npm run build```
+
+2. ```cd 'build directory'```
+
+3. ```npm install -g serve``` to install static server 
+
+4. ```serve -s build``` to run in from your terminal
+
+5. open ```http://localhost:5000/``` in your browser
 
 
 

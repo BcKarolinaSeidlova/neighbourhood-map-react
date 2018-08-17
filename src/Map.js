@@ -63,7 +63,11 @@ class Map extends Component {
 
     componentDidMount() {
         this.loadMap();
+        window.gm_authFailure = function() {
+            alert('Couldn\'t load the Google Map. Check your internet connection')
+        }
     }
+
 
 
     loadMap() { 
